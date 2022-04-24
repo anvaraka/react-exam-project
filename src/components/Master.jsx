@@ -1,33 +1,52 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import '../App.css'
+import * as React from 'react';
 import { useDispatch, useSelector } from 'react-redux'
 import { callToAPi } from './homeSlice'
-import { Card, CardMedia, CardContent, Typography, Grid, Box, Button, CardActions } from '@mui/material'
+import { Card, CardMedia, CardContent, Typography, Grid, Modal } from '@mui/material'
+import ModalCard from './Modal';
 
 function Master() {
     const dispatch = useDispatch()
     const allData = useSelector((state) => state.disney)
 
+    const [open, setOpen] = useState(false);
+    const [selectedCard, setSelectedCard] = useState({})
+
+    const handleOpen = (id) => {
+        setOpen(true)
+
+        for (let el of allData) {
+            if (el._id === id) {
+                setSelectedCard(el)
+            }
+        }
+    };
+
+    const handleClose = () => setOpen(false);
+
     useEffect(() => {
         dispatch(callToAPi())
     }, [])
 
-    console.log(allData)
-
-
 
     return (
         <>
-            <h1>Disney Characters </h1>
-            <p className='header'>We will see some of the Disney Characters below and some information about them, list of moview or tv-shows they participated and etc</p>
 
+            <h1 className='title'>Disney Characters </h1>
+            <p className='header'>We will see some of the Disney Characters below and some information about them like list of moview, tv-shows they participated and etc</p>
 
             <Grid width='100%' container spacing={{ xs: 2, md: 3 }} rowSpacing={2}>
-                {allData.map(el => {
-                    return (
-                        <Grid item xs={2}>
 
-                            <Card key={el._id} sx={{ width: "100%", height: "95%" }}>
+                {allData.map(el => {
+
+                    return (
+
+                        <Grid key={el._id} onClick={() => handleOpen(el._id)} item xs={2}>
+                            <Card sx={{
+                                width: "100%", height: "95%",
+                                borderRadius: '25px', backgroundColor: 'rgba(250, 250, 29, 0.968)'
+                            }} >
                                 <CardMedia
                                     component="img"
                                     alt="img"
@@ -58,13 +77,12 @@ function Master() {
                                     </Typography>
                                 </CardContent>
                             </Card>
-
                         </Grid >
                     )
                 })}
+
+                <ModalCard selectedCard={selectedCard} open={open} handleOpen={handleOpen} handleClose={handleClose} />
             </Grid >
-
-
         </>
     )
 }
