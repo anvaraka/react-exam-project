@@ -1,5 +1,5 @@
 import '../App.css'
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 
 function Pagination({ allData, RenderComponent, title, pageLimit, dataLimit }) {
     const [pages] = useState(Math.round(allData.length / dataLimit));
@@ -28,6 +28,10 @@ function Pagination({ allData, RenderComponent, title, pageLimit, dataLimit }) {
         let start = Math.floor((currentPage - 1) / pageLimit) * pageLimit;
         return new Array(pageLimit).fill().map((_, idx) => start + idx + 1);
     };
+
+    useEffect(() => {
+        window.scrollTo({ behavior: 'smooth', top: '0px' });
+    }, [currentPage]);
 
     return (
         <div>

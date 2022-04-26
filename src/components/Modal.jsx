@@ -1,6 +1,5 @@
-import React from 'react'
+import React, { Component } from 'react'
 import { Typography, Modal, Box, CardMedia } from '@mui/material'
-
 
 const style = {
 
@@ -16,45 +15,49 @@ const style = {
 
 };
 
-function ModalCard({ selectedCard, open, handleClose }) {
-    return (
-        <Modal
-            open={open}
-            onClose={handleClose}
-            aria-labelledby="modal-modal-title"
-            aria-describedby="modal-modal-description"
-        >
-            <Box sx={style}>
+export default class ModalCard extends Component {
 
-                <CardMedia
-                    component="img"
-                    alt="img"
-                    image={selectedCard.imageUrl}
-                />
-                <Typography id="modal-modal-title" variant="h6" component="h2">
-                    {selectedCard.name}
-                </Typography>
-                <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-                    Films :
-                    <Typography variant="body2" color="green">{selectedCard.films}</Typography>
-                </Typography>
-                <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-                    ShortFilms :
-                    <Typography variant="body2" color="green">{selectedCard.shortFilms}</Typography>
-                </Typography>
-                <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-                    TV-Shows :
-                    <Typography variant="body2" color="green">{selectedCard.tvShows}</Typography>
-                </Typography>
-                <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-                    Park Attractions :
-                    <Typography variant="body2" color="green">{selectedCard.parkAttractions}</Typography>
-                </Typography>
+    render() {
+        const { selectedCard, open, handleClose } = this.props
 
-            </Box>
-        </Modal>
-    )
+        return (
+            <Modal
+                open={open}
+                onClose={handleClose}
+                aria-labelledby="modal-modal-title"
+                aria-describedby="modal-modal-description"
+            >
+                <Box sx={style}>
+
+                    <CardMedia
+                        component="img"
+                        alt="img"
+                        image={selectedCard.imageUrl}
+                    />
+                    <Typography id="modal-modal-title" variant="h6" component="h2">
+                        {selectedCard.name}
+                    </Typography>
+                    <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+                        Films :
+                        <Typography variant="body2" color="green">{selectedCard.films}</Typography>
+                    </Typography>
+                    <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+                        ShortFilms :
+                        <Typography variant="body2" color="green">{selectedCard.shortFilms}</Typography>
+                    </Typography>
+                    <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+                        TV-Shows :
+                        <Typography variant="body2" color="green">{selectedCard.tvShows}</Typography>
+                    </Typography>
+                    <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+                        Park Attractions :
+                        <Typography variant="body2" color="green">{selectedCard.parkAttractions}</Typography>
+                    </Typography>
+
+                </Box>
+            </Modal>
+        )
+    }
 }
-export default ModalCard
 
 
