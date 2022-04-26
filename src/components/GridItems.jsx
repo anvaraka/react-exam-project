@@ -19,9 +19,11 @@ function GridItems({ allData }) {
     const handleClose = () => setOpen(false);
 
     return (
-        <Grid width='100%' container sx={{ display: 'grid' }} spacing={2} >
 
-            <Grid key={allData._id} onClick={() => handleOpen(allData._id)} item xs={2}>
+        <>
+       
+
+            <Grid item xs={2} key={allData._id} onClick={() => handleOpen(allData._id)}>
 
                 <Card sx={{
                     width: "100%", height: "95%",
@@ -66,7 +68,7 @@ function GridItems({ allData }) {
 
             <ModalCard selectedCard={selectedCard} open={open} handleOpen={handleOpen} handleClose={handleClose} />
 
-        </Grid>
+        </>
     )
 }
 

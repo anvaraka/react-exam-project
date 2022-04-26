@@ -2,7 +2,7 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
 
-export const callToAPi = createAsyncThunk('api/disney', async (obj, { state, error }) => {
+export const callToAPi = createAsyncThunk('api/disney', async (obj, { state, error }, setLoading) => {
     try {
         const res = await axios.get('https://api.disneyapi.dev/characters?page=2')
         return res.data.data

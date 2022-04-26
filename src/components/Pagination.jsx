@@ -1,20 +1,35 @@
 import '../App.css'
 import React, { useState, useEffect } from 'react'
+import { Grid } from '@mui/material'
+
+const PAGE_KEY = 'MY_PAGINATION_KEY'
+
+const getPageNumber = () => {
+    if (sessionStorage && parseInt(sessionStorage.getItem(PAGE_KEY)) > 0) {
+        return parseInt(sessionStorage.getItem(PAGE_KEY))
+    }
+    return 1
+}
+
 
 function Pagination({ allData, RenderComponent, title, pageLimit, dataLimit }) {
     const [pages] = useState(Math.round(allData.length / dataLimit));
-    const [currentPage, setCurrentPage] = useState(1);
+    const [currentPage, setCurrentPage] = useState(getPageNumber());
+
 
     function goToNextPage() {
+        sessionStorage.setItem(PAGE_KEY, currentPage + 1)
         setCurrentPage((page) => page + 1);
     }
 
     function goToPreviousPage() {
+        sessionStorage.setItem(PAGE_KEY, currentPage - 1)
         setCurrentPage((page) => page - 1);
     }
 
     function changePage(event) {
         const pageNumber = Number(event.target.textContent);
+        sessionStorage.setItem(PAGE_KEY, pageNumber)
         setCurrentPage(pageNumber);
     }
 
@@ -35,12 +50,15 @@ function Pagination({ allData, RenderComponent, title, pageLimit, dataLimit }) {
 
     return (
         <div>
-            <h1>{title}</h1>
+            <h1 className='h1'>{title}</h1>
 
             <div className="dataContainer">
-                {getPaginatedData().map((d, idx) => (
-                    <RenderComponent class='renderComp' key={idx} allData={d} />
-                ))}
+                <Grid container spacing={2}
+                    justifyContent="center">
+                    {getPaginatedData().map((d, idx) => (
+                        <RenderComponent key={idx} allData={d} />
+                    ))}
+                </Grid>
             </div>
 
             <div className="pagination">
@@ -67,7 +85,9 @@ function Pagination({ allData, RenderComponent, title, pageLimit, dataLimit }) {
                 >
                     next
                 </button>
-            </div></div>
+            </div>
+
+        </div>
     )
 }
 
