@@ -1,6 +1,6 @@
-import React from 'react'
-import { Card, CardMedia, CardContent, Typography, Grid } from '@mui/material'
-import { useState } from 'react'
+import React from 'react';
+import { Card, CardMedia, CardContent, Typography, Grid } from '@mui/material';
+import { useState } from 'react';
 import ModalCard from './Modal';
 
 function GridItems({ allData }) {
@@ -9,9 +9,8 @@ function GridItems({ allData }) {
     const [selectedCard, setSelectedCard] = useState({})
 
     const handleOpen = (id) => {
-        setOpen(true)
-
-        if (allData._id === id) {
+        if (allData._id == id) {
+            setOpen(true)
             setSelectedCard(allData)
         }
     };
@@ -19,11 +18,8 @@ function GridItems({ allData }) {
     const handleClose = () => setOpen(false);
 
     return (
-
         <>
-       
-
-            <Grid item xs={2} key={allData._id} onClick={() => handleOpen(allData._id)}>
+            <Grid item  xs={2} sm={2} md={2} key={allData._id} id={allData._id} onClick={(e) => handleOpen(e.currentTarget.id)}>
 
                 <Card sx={{
                     width: "100%", height: "95%",
@@ -34,40 +30,48 @@ function GridItems({ allData }) {
                         component="img"
                         alt="img"
                         width="100%"
-                        height='270'
+                        height='200'
                         image={allData.imageUrl}
                     />
                     <CardContent sx={{ padding: "15px", margin: '20px', lineHeight: '25px' }}>
 
-                        <Typography gutterBottom variant="h5" component="div">
+                        {allData.name.length > 0 ? <Typography gutterBottom variant="h5" component="div">
                             {allData.name}
-                        </Typography>
+                        </Typography> : ''}
 
-                        <Typography variant="bod1" color="blue">  Films :
+                        {allData.films.length > 0 ? <Typography variant="bod1" color="blue">  Films :
                             <Typography noWrap variant="body2" color="green">{allData.films}</Typography>
-                        </Typography>
+                        </Typography> : ''}
 
-                        <Typography variant="bod1" color="blue">
+                        {allData.shortFilms.length > 0 ? <Typography variant="bod1" color="blue">
                             ShortFilms :
-                            <Typography noWrap variant="body2" color="green">{allData.shortFilms}</Typography >
-                        </Typography>
-                        <Typography variant="bod1" color="blue">
+                            <Typography noWrap variant="body2" color="green">{allData.shortFilms}</Typography>
+                        </Typography> : ''}
+
+                        {allData.tvShows.length > 0 ? <Typography variant="bod1" color="blue">
                             TV-Shows :
-                            <Typography noWrap variant="body2" color="green">{allData.tvShows}</Typography >
-                        </Typography>
-                        <Typography variant="bod1" color="blue">
+                            <Typography noWrap variant="body2" color="green">{allData.tvShows}</Typography>
+                        </Typography> : ''}
+
+                        {allData.parkAttractions.length > 0 ? <Typography variant="bod1" color="blue">
                             Park Attractions :
-                            <Typography noWrap variant="body2" color="green">{allData.parkAttractions}</Typography >
-                        </Typography>
+                            <Typography noWrap variant="body2" color="green">{allData.parkAttractions}</Typography>
+                        </Typography> : ''}
+
+                        {allData.parkAttractions.length > 0 ? <Typography variant="bod1" color="blue">
+                            Park Attractions :
+                            <Typography noWrap variant="body2" color="green">{allData.parkAttractions}</Typography>
+                        </Typography> : ''}
+
+                        {allData.videoGames.length > 0 ? <Typography variant="bod1" color="blue">
+                            Video Games :
+                            <Typography noWrap variant="body2" color="green">{allData.videoGames}</Typography>
+                        </Typography> : ''}
 
                     </CardContent>
-
                 </Card>
-
-            </Grid >
-
+            </Grid>
             <ModalCard selectedCard={selectedCard} open={open} handleOpen={handleOpen} handleClose={handleClose} />
-
         </>
     )
 }

@@ -37,23 +37,24 @@ export default class ModalCard extends Component {
                     <Typography id="modal-modal-title" variant="h6" component="h2">
                         {selectedCard.name}
                     </Typography>
-                    <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-                        Films :
-                        <Typography variant="body2" color="green">{selectedCard.films}</Typography>
-                    </Typography>
-                    <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-                        ShortFilms :
-                        <Typography variant="body2" color="green">{selectedCard.shortFilms}</Typography>
-                    </Typography>
-                    <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-                        TV-Shows :
-                        <Typography variant="body2" color="green">{selectedCard.tvShows}</Typography>
-                    </Typography>
-                    <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-                        Park Attractions :
-                        <Typography variant="body2" color="green">{selectedCard.parkAttractions}</Typography>
-                    </Typography>
 
+                    <Typography id="modal-modal-description" component="div">
+                        <Typography variant="body1" color="green" sx={{ mt: 2 }}>
+                            <b style={{ color: 'black' }}>Films :</b> {selectedCard.films}
+                        </Typography>
+                        <Typography variant="body1" color="green" sx={{ mt: 2 }}>
+                            <b style={{ color: 'black' }}>ShortFilms :</b> {selectedCard.shortFilms}
+                        </Typography>
+                        <Typography variant="body1" color="green" sx={{ mt: 2 }}>
+                            <b style={{ color: 'black' }}>TV-Shows :</b> {selectedCard.tvShows}
+                        </Typography>
+                        <Typography variant="body1" color="green" sx={{ mt: 2 }}>
+                            <b style={{ color: 'black' }}>Park Attractions :</b> {selectedCard.parkAttractions}
+                        </Typography>
+                        <Typography variant="body1" color="green" sx={{ mt: 2 }}>
+                            <b style={{ color: 'black' }}>Video Games :</b> {selectedCard.videoGames}
+                        </Typography>
+                    </Typography>
                 </Box>
             </Modal>
         )

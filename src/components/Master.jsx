@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { callToAPi } from './homeSlice'
 import Pagination from './Pagination';
 import GridItems from './GridItems';
-import { Grid, Typography, CircularProgress, Input, Button } from '@mui/material';
+import { Typography, CircularProgress, } from '@mui/material';
 import styled from 'styled-components';
 import Search from './Search';
 
@@ -23,9 +23,8 @@ function Master() {
     const dispatch = useDispatch()
 
     const allData = useSelector((state) => state.disney)
-
     const load = () => {
-        if (allData !== []) {
+        if (allData.length > 0) {
             setIsLoading(false)
         } else {
             setIsLoading(true)
@@ -33,13 +32,10 @@ function Master() {
     }
     setTimeout(load, 1000);
 
-
-
     let dataLimit = 10
 
     const filteredData = allData.filter(el => el.name.toLowerCase().includes(inputVal))
-    const Perpage = Math.ceil(filteredData.length / dataLimit)
-    console.log(filteredData)
+    const PerPage = Math.ceil(filteredData.length / dataLimit)
 
     useEffect(() => {
         dispatch(callToAPi())
@@ -48,23 +44,20 @@ function Master() {
     return (
         isLoading ? <SpinnerWrapper> <Typography mb={2}>Data is loading</Typography>
             <CircularProgress />
-        </SpinnerWrapper > :
+        </SpinnerWrapper> :
             <>
                 <h1 className='title'>Disney Characters </h1>
-                <p className='header'>We will see some of the Disney Characters below and some information about them like list of moview, tv-shows they participated and so on</p>
+                <p className='header'>We will see some of the Disney Characters below and some information about them like list of movies, tv-shows they participated and so on</p>
 
                 <Search setInputVal={setInputVal} />
-
-
                 {filteredData.length > 0 ? (
                     <>
-
                         <Pagination
                             allData={filteredData}
                             inputVal={inputVal}
                             RenderComponent={GridItems}
                             title="Cards"
-                            pageLimit={Perpage}
+                            pageLimit={PerPage}
                             dataLimit={dataLimit}
                         />
                     </>

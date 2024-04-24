@@ -1,6 +1,6 @@
 import '../App.css'
 import React, { useState, useEffect } from 'react'
-import { Grid } from '@mui/material'
+import { Grid, Button } from '@mui/material'
 
 const PAGE_KEY = 'MY_PAGINATION_KEY'
 
@@ -11,11 +11,15 @@ const getPageNumber = () => {
     return 1
 }
 
-
 function Pagination({ allData, RenderComponent, title, pageLimit, dataLimit }) {
-    const [pages] = useState(Math.round(allData.length / dataLimit));
-    const [currentPage, setCurrentPage] = useState(getPageNumber());
 
+    const [currentPage, setCurrentPage] = useState(getPageNumber());
+    const [pages, setPages] = useState(1);
+
+    useEffect(() => {
+        setPages(Math.ceil(allData.length / dataLimit));
+        setCurrentPage(1)
+    }, [allData, dataLimit]);
 
     function goToNextPage() {
         sessionStorage.setItem(PAGE_KEY, currentPage + 1)
@@ -53,38 +57,38 @@ function Pagination({ allData, RenderComponent, title, pageLimit, dataLimit }) {
             <h1 className='h1'>{title}</h1>
 
             <div className="dataContainer">
-                <Grid container spacing={2}
+                <Grid  container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}
                     justifyContent="center">
-                    {getPaginatedData().map((d, idx) => (
-                        <RenderComponent key={idx} allData={d} />
-                    ))}
+                    {getPaginatedData().map((d, idx) => {
+                        return <RenderComponent key={idx} allData={d} />
+                    })}
                 </Grid>
             </div>
 
             <div className="pagination">
-                <button
+                <Button
                     onClick={goToPreviousPage}
                     className={`prev ${currentPage === 1 ? 'disabled' : ''}`}
                 >
-                    prev
-                </button>
+                    Prev
+                </Button>
 
                 {getPaginationGroup().map((item, index) => (
-                    <button
+                    <Button
                         key={index}
                         onClick={changePage}
                         className={`paginationItem ${currentPage === item ? 'active' : null}`}
                     >
                         <span>{item}</span>
-                    </button>
+                    </Button>
                 ))}
 
-                <button
+                <Button
                     onClick={goToNextPage}
                     className={`next ${currentPage === pages ? 'disabled' : ''}`}
                 >
-                    next
-                </button>
+                    Next
+                </Button>
             </div>
 
         </div>
